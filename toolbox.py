@@ -16,11 +16,8 @@ Here are a couple of scripts free to use.
   You should have received a copy of the GNU General Public License
   along with these programs.  If not, see <http://www.gnu.org/licenses/>.
 """
- 
-"""
-Indents are four spaces.
-Any definition more than one line in length should have a docstring. (excl. __init__, etc.)
-"""
+
+"""-------------------------------------------------------------"""
  
 class Lambda:
 	"""Anonymous class declaration - with a L"""
@@ -94,6 +91,63 @@ class Point(Geometry):
 	#def __
  
 # End Geometry objects
+
+"""-------------------------------------------------------------"""
  
 def adding_primes(bound=10):
 	return [ sum(l)+1 for l in [[x for x in range(i+1)] for i in range(bound)]]
+	
+"""-------------------------------------------------------------"""
+
+class Colors(object):
+	"""Class for creating ansi colored text out of CSS like readable strings
+	
+	Note that it is not meant to be very cross platform, more just to let strings be more human readable."""
+	def __init__(self):
+		# Basic Colors
+		self.colors =  {"gray" : "7",
+						"black" : "0",
+						"red" : "1",
+						"green" : "2",
+						"yellow" : "3",
+						"blue" : "4",
+						"purple" : "5",
+						"cyan" : "6"}
+		# Modifiers
+		self.bright = "1"
+		self.sep = ";"
+		self.background = "4"
+		self.foreground = "3"
+		# Part of the esc seq
+		self.esc = "\033"
+		self.pre = "["
+		self.prefix = self.esc + self.pre
+		self.postfix = "m"
+		# Normalize
+		self.normal = self.prefix + '0' + self.postfix
+	def __getitem__(self, key):
+		try:
+			if key in ("normal", "normal;"): return self.normal
+			string = self.prefix
+			if "bright;" == key[:7]:
+				string += self.bright + self.sep
+				key = key[7:]
+			if "background:" == key[:11]:
+				end_color = key.index(";", 11)
+				color = key[11:end_color]
+				string += self.background + self.colors[color] + self.sep
+				key = key[end_color+1:]
+			if "foreground:" == key[:11]:
+				end_color = key.index(";", 11)
+				color = key[11:end_color]
+				string += self.foreground + self.colors[color]
+				key = key[end_color+1:]
+			if key:
+				raise KeyError
+			string += self.postfix
+			return string
+		except Exception:
+			raise KeyError("Invalid Key.")
+
+"""-------------------------------------------------------------"""
+
