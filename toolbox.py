@@ -70,7 +70,7 @@ def auto_socket(HOST, PORT):
 		except socket.error as msg:
 			s.close()
 			s = None
-				continue
+			continue
 		return s
  
 """-------------------------------------------------------------"""
@@ -100,7 +100,7 @@ def adding_primes(bound=10):
 """-------------------------------------------------------------"""
 
 class Colors(object):
-	"""Class for creating ansi colored text out of CSS like readable strings
+	"""Class for creating ansi colored text out of CSS-like readable strings
 	
 	Note that it is not meant to be very cross platform, more just to let strings be more human readable."""
 	def __init__(self):
@@ -151,3 +151,26 @@ class Colors(object):
 
 """-------------------------------------------------------------"""
 
+class UsefulSeq(object):
+	"""A number of useful sequences for use."""
+	def __init__(self):
+		self.__alphabet = "abcdefghijklmnopqrstuvwxyz"
+	def __getattr__(self, name):
+		if "_" in name:
+			parts = name.split("_")
+		else:
+			parts = name.split()
+		return_type = str
+		if "string" in parts or "str" in parts:
+			return_type = str
+		elif "list" in parts:
+			return_type = list
+		elif "set" in parts:
+			return_type = set
+		elif "tup" in parts or "tuple" in parts:
+			return_type = tuple
+		
+		desired = parts[-1]
+		desired_und = "_UsefulSeq__" + desired
+		return return_type(self.__dict__[desired_und])
+		
