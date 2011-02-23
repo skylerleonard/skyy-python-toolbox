@@ -17,6 +17,10 @@ Here are a couple of scripts free to use.
   along with these programs.  If not, see <http://www.gnu.org/licenses/>.
 """
 
+# Imports:
+import random , string
+
+
 """-------------------------------------------------------------"""
  
 class Lambda:
@@ -178,9 +182,17 @@ class UsefulSeq(object):
 
 def random_sort(l):
 	"""Sort a list randomly"""
-	import random
 	nl = []
 	length = len(l)
 	for i in range(length):
 		nl.append(l.pop(random.randrange(len(l))))
 	return nl
+
+"""-------------------------------------------------------------"""
+
+def randstr(length, letters=string.printable):
+	"""print a random string"""
+	s = ""
+	for i in range(length):
+		s += random.choice(letters)
+	return s
