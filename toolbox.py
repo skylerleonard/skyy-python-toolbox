@@ -174,3 +174,13 @@ class UsefulSeq(object):
 		desired_und = "_UsefulSeq__" + desired
 		return return_type(self.__dict__[desired_und])
 		
+"""-------------------------------------------------------------"""
+
+def random_sort(l):
+	"""Sort a list randomly"""
+	import random
+	nl = []
+	length = len(l)
+	for i in range(length):
+		nl.append(l.pop(random.randrange(len(l))))
+	return nl
