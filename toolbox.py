@@ -196,3 +196,15 @@ def randstr(length, letters=string.printable):
 	for i in range(length):
 		s += random.choice(letters)
 	return s
+	
+"""-------------------------------------------------------------"""
+
+class ManyFunction(object):
+	"""Call many functions with the same arguments"""
+	def __init__(self, *functions):
+		self.functions = functions
+	def __call__(self, *args):
+		results = ()
+		for function in self.functions:
+			results += function(*args),
+		return results
