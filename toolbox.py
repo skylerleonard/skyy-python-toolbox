@@ -119,6 +119,7 @@ class Colors(object):
 						"cyan" : "6"}
 		# Modifiers
 		self.bright = "1"
+		self.blink = "5" 
 		self.sep = ";"
 		self.background = "4"
 		self.foreground = "3"
@@ -136,6 +137,9 @@ class Colors(object):
 			if "bright;" == key[:7]:
 				string += self.bright + self.sep
 				key = key[7:]
+			if "blink;" == key[:6]:
+				string += self.blink + self.sep
+				key = key[6:]
 			if "background:" == key[:11]:
 				end_color = key.index(";", 11)
 				color = key[11:end_color]
