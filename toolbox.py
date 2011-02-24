@@ -148,10 +148,11 @@ class Colors(object):
 			if "foreground:" == key[:11]:
 				end_color = key.index(";", 11)
 				color = key[11:end_color]
-				string += self.foreground + self.colors[color]
+				string += self.foreground + self.colors[color] + self.sep
 				key = key[end_color+1:]
 			if key:
 				raise KeyError
+			string = string[:-1]
 			string += self.postfix
 			return string
 		except Exception:
