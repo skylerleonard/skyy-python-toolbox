@@ -213,3 +213,21 @@ class ManyFunction(object):
 		for function in self.functions:
 			results += function(*args),
 		return results
+
+"""-------------------------------------------------------------"""
+
+class Curses_screen:
+	"""Nice curses screen for use in 'with' statements.
+	
+	https://www.ironalbatross.net/wiki/index.php5?title=Python_Curses"""
+    def __enter__(self):
+        self.stdscr = curses.initscr()
+        curses.cbreak()
+        curses.noecho()
+        self.stdscr.keypad(1)
+        return self.stdscr
+    def __exit__(self,a,b,c):
+        curses.nocbreak()
+        self.stdscr.keypad(0)
+        curses.echo()
+        curses.endwin()
