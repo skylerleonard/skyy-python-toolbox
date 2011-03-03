@@ -231,3 +231,16 @@ class Curses_screen:
         self.stdscr.keypad(0)
         curses.echo()
         curses.endwin()
+
+"""-------------------------------------------------------------"""
+
+def biasedRandom(lo, hi, target, steps=1):
+    if lo >= hi:
+        raise ValueError("lo should be less than hi")
+    elif target < lo or target >= hi:
+        raise ValueError("target not in range(lo, hi)")
+    else:
+        num = random.randint(lo, hi)
+        for i in range(steps):
+            num += int(random.random() * (target - num))
+        return num
