@@ -18,7 +18,7 @@ Here are a couple of scripts free to use.
 """
 
 # Imports:
-import random , string
+import random , string , getopt
 
 
 """-------------------------------------------------------------"""
@@ -157,31 +157,6 @@ class Colors(object):
 			return string
 		except Exception:
 			raise KeyError("Invalid Key.")
-
-"""-------------------------------------------------------------"""
-
-class UsefulSeq(object):
-	"""A number of useful sequences for use."""
-	def __init__(self):
-		self.__alphabet = "abcdefghijklmnopqrstuvwxyz"
-	def __getattr__(self, name):
-		if "_" in name:
-			parts = name.split("_")
-		else:
-			parts = name.split()
-		return_type = str
-		if "string" in parts or "str" in parts:
-			return_type = str
-		elif "list" in parts:
-			return_type = list
-		elif "set" in parts:
-			return_type = set
-		elif "tup" in parts or "tuple" in parts:
-			return_type = tuple
-		
-		desired = parts[-1]
-		desired_und = "_UsefulSeq__" + desired
-		return return_type(self.__dict__[desired_und])
 		
 """-------------------------------------------------------------"""
 
@@ -244,3 +219,70 @@ def biasedRandom(lo, hi, target, steps=1):
         for i in range(steps):
             num += int(random.random() * (target - num))
         return num
+
+"""-------------------------------------------------------------"""
+
+class Instaopts(options):
+	"""docstring for instaopts
+	
+	depends: getopt, string"""
+	def __init__(self, options):
+		self.options = options
+		self.__checkoptions()
+		self.shorts = self.__makeshort()
+	def __checkoptions(self):
+		"""Make sure all options are strings and not empty."""
+		for opt in self.options:
+			if not isinstance(opt, str) and opt:
+				raise ValueError("Invalid Option: %s" % repr({opt: self.options[opt]}))
+	def __makeshort(self):
+		shorts = {}
+		for name in self.options:
+			yes = False
+			for let in name:
+				if let in shorts:
+					continue
+				else:
+					shorts[let] = name
+					yes = True
+			if not yes:
+				for let in string.ascii_lowercase:
+					if let in shorts:
+						continue
+					else:
+						shorts[let] = name
+						yes = True
+			if not yes:
+				raise ValueError("Too many options!")
+		return shorts
+	def __condensed(self):
+		bools = values = ""
+		for short in self.shorts:
+			if self.options[self.shorts[short]] in (True, False):
+				bools += short
+			else:
+				values += short
+		for short in bools:
+			pass
+	def check(self, args):
+		"""Check args and return a new dict"""
+		getopt
+
+"""-------------------------------------------------------------"""
+
+def bytes_from_human_readable(string):
+	string = string.lower()
+	units = ["k", "m", "g"]
+	if string[-1] == "b":
+		string = string[:-1]
+	if not string[-1] in units:
+		try:
+			return int(string)
+		except ValueError:
+			raise ValueError("Invalid Size String")
+	try:
+		return int(string[:-1]) * (KILOBYTESIZE ** ((units.index(string[-1])) + 1))
+	except ValueError:
+		raise ValueError("Invalid Size String")
+
+"""-------------------------------------------------------------"""
