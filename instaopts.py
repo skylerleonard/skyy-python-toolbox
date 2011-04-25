@@ -44,9 +44,9 @@ class Instaopts(object):
 	
 	>>> options = {"verbose": False, "output": "file.out", "input": None}
 	>>> opts = Instaopts(options)
-	>>> opts.check(["script.py", "-v", "-o", "otherfile.out"]) == {"verbose": True, "output": "otherfile.out", "input": None}
+	>>> opts.check(["script.py", "-v", "-o", "otherfile.out"]) == ({"verbose": True, "output": "otherfile.out", "input": None}, [])
 	True
-	>>> opts.check(["script.py", "-i", "somefile.in"]) == {"verbose": False, "output": "file.out", "input": "somefile.in"}
+	>>> opts.check(["script.py", "-i", "somefile.in", "argfile.txt"]) == ({"verbose": False, "output": "file.out", "input": "somefile.in"}, ["argfile.txt"])
 	True
 	"""
 	def __init__(self, options, fancy_help_message = True, default_handling = True):
