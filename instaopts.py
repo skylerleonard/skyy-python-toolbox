@@ -150,7 +150,7 @@ class Instaopts(object):
 					opt = self.shorts[option[1:]]
 				
 				if opt in self.bools:
-					value = True
+					value = not self.options[opt]
 				
 				options[opt] = value
 			
