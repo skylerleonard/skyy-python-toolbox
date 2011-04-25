@@ -18,7 +18,8 @@ Here are a couple of scripts free to use.
 """
 
 # Imports:
-import random , string , getopt
+import random , string 
+import instaopts
 
 
 """-------------------------------------------------------------"""
@@ -222,51 +223,7 @@ def biasedRandom(lo, hi, target, steps=1):
 
 """-------------------------------------------------------------"""
 
-class Instaopts(options):
-	"""docstring for instaopts
-	
-	depends: getopt, string"""
-	def __init__(self, options):
-		self.options = options
-		self.__checkoptions()
-		self.shorts = self.__makeshort()
-	def __checkoptions(self):
-		"""Make sure all options are strings and not empty."""
-		for opt in self.options:
-			if not isinstance(opt, str) and opt:
-				raise ValueError("Invalid Option: %s" % repr({opt: self.options[opt]}))
-	def __makeshort(self):
-		shorts = {}
-		for name in self.options:
-			yes = False
-			for let in name:
-				if let in shorts:
-					continue
-				else:
-					shorts[let] = name
-					yes = True
-			if not yes:
-				for let in string.ascii_lowercase:
-					if let in shorts:
-						continue
-					else:
-						shorts[let] = name
-						yes = True
-			if not yes:
-				raise ValueError("Too many options!")
-		return shorts
-	def __condensed(self):
-		bools = values = ""
-		for short in self.shorts:
-			if self.options[self.shorts[short]] in (True, False):
-				bools += short
-			else:
-				values += short
-		for short in bools:
-			pass
-	def check(self, args):
-		"""Check args and return a new dict"""
-		getopt
+Instaopts = instaopts.Instaopts				
 
 """-------------------------------------------------------------"""
 
