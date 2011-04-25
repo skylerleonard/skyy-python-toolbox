@@ -35,7 +35,10 @@ class UsageError(Exception):
 		self.msg = msg
 
 class Instaopts(object):
-	"""docstring for instaopts
+	"""Super easy option parsing, based on getopt. Just pass a dictionary of default values to __init__ and then check(sys.argv)
+	
+	fancy_help_message - use ansi escape seq to pretty up the help message. Default True.
+	default_handling - handle errors the default way, which will interupt your program. If false, simply return None if there was an error.
 	
 	depends: getopt, string
 	
