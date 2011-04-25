@@ -167,7 +167,7 @@ class Instaopts(object):
 		
 		del options["help"]
 		
-		return options
+		return options, args
 
 if __name__ == '__main__':
 	import doctest
